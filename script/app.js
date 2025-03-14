@@ -12,34 +12,39 @@ const displayCategory = (categories) => {
         newDiv.innerHTML = `
             <button onclick="loadPets('${element.category}')" class="btn border hover:bg-gray-200 px-12 py-8 bg-gray-50 text-2xl font-bold"><img class="w-8" src="${element.category_icon}" alt="${element.category}">${element.category}</button>
         `
-        categoryBtnContainer.appendChild(newDiv);
+        categoryBtnContainer.appendChild(newDiv)
     });
 
 }
 //display data by category
 
 const loadPets = async (categoryName) => {
+    document.getElementById("birds-data").innerHTML = "";
+
+    show("spinner")
 
     const res = await fetch(`https://openapi.programming-hero.com/api/peddy/category/${categoryName}`);
     const data = await res.json();
-    displayPets(data.data);
+
+    setTimeout(() => {
+        if(data.data) {
+            displayPets(data.data);
+        }
+        hidden("spinner");
+    }, 2000);
 }
 
 const displayPets = (pets) => {
-    console.log(pets);
-    // document.getElementById("birds-data").classList.add="hidden";
-    document.getElementById("birds-data").innerHTML = "";
+    // document.getElementById("birds-data").innerHTML = "";
 
     if (pets.length == 0) {
         const birdsData = document.getElementById("birds-data");
         const div = document.createElement("div");
         div.innerHTML = `
-        <img class="w-26 md:w-44 h-26 md:h-44 mx-auto" src="./assets/error.webp" alt="">
+                <img class="w-26 md:w-44 h-26 md:h-44 mx-auto" src="./assets/error.webp" alt="">
                 <h2 class=" text-xl md:text-4xl font-semibold pb-2 md:pb-4">No Information Available</h2>
-                <p class="text-sm md:text-lg font-medium">It is a long established fact that a reader will be
-                    distracted by the
-                    readable content of a page when looking at its layout. The point of using more one of that it
-                    has a.</p>
+                <p class="text-sm md:text-lg font-medium">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using more one of that ithas a.
+                </p>
         `
         birdsData.append(div);
     }
@@ -65,7 +70,7 @@ const displayPets = (pets) => {
                     </div>
                     <!-- card footer  -->
                     <div class="pt-2 flex items-center justify-between">
-                        <button class="btn border-2 px-3 rounded-lg"><img src="./assets/like.svg"></button>
+                        <button class="btn border-2 px-3 rounded-lg liked"><img src="./assets/like.svg"></button>
                         <button class="btn border-2 px-3 rounded-lg text-btn-bg">Adopt</button>
                         <button class="btn border-2 px-3 rounded-lg text-btn-bg">Details</button>
                     </div>
@@ -74,8 +79,18 @@ const displayPets = (pets) => {
         `
         petsContainer.appendChild(div);
     })
+
+
 }
 
+//like button
+// const likeBtn = document.getElementsByClassName("liked");
+// for (const btn of likeBtn) {
+//     btn.addEventListener("click", (event)=>{
+//         console.log(event.target);
+//         displayPets();
+//     })
+// }
 
 
 
@@ -84,3 +99,17 @@ loadPets("cat")
 loadCategory()
 
 
+
+setTimeout(() => {
+    document.getElementById("spinner").style.display = 'none'
+}, 3000);
+
+
+
+const hidden = (id) =>{
+    document.getElementById(id).style.display="none";
+}
+
+const show = (id) => {
+    document.getElementById(id).style.display="block";
+}

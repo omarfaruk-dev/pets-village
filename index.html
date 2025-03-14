@@ -75,6 +75,10 @@
                 <button class="btn bg-btn-bg text-xl text-white font-bold px-8 py-4">Sort by Price</button>
             </div>
         </section>
+        <!-- spinner -->
+        <div class="text-center">
+            <span id="spinner" class="loading loading-spinner loading-xl"></span>
+        </div>
         <!-- best deal dynamic content -->
         <section id="new-birds-data" class="grid gap-4 sm:grid-cols-3 md:grid-cols-4">
             <div id="pets-card-container" class="col-span-3 grid gap-3 grid-cols-3">
@@ -83,14 +87,18 @@
             <!-- birds data - not found - dynamic content-->
             <div id="birds-data"
                 class=" grid justify-center items-center text-center rounded-lg mx-auto col-span-3 p-6 md:p-16 bg-[#13131308]">
+                
             </div>
 
             <!-- </div> -->
 
-            <div class="col-span-1">
-
+            <div id="liked-pets-container" class=" p-4 border rounded-lg flex flex-wrap">
+                
 
             </div>
+            <!-- <section id="liked-pets-container" class="p-4 border rounded-lg flex flex-wrap">
+                
+            </section> -->
 
         </section>
 
